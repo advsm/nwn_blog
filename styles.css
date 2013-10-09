@@ -1,0 +1,64 @@
+body {
+  color: white;
+  font-size: 95%;
+  font-style: serif;
+  background-color: black;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+input {
+  background-color: #dddddd;
+  color: black;
+}
+
+textarea {
+  background-color: #dddddd;
+  color: black;
+}
+
+select {
+  background-color: #dddddd;
+  color: black;
+}
+
+.time {
+  color: #808080;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.text {
+  font-style: sans-serif;
+}
+
+.comment {
+  font-style: italic;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #999999;
+}
+
+a {
+  text-decoration: none;
+  color: #808080;
+}
+
+.admin {
+  color: blue;
+}
+
+.user {
+  color: #808080;
+}
+
+guest {
+  color: white;
+}
