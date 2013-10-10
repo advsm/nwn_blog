@@ -31,7 +31,7 @@ if(($t=$_GET['page']-1)>0) {
   $pages.="page=$t&show=$show'>previous</a> ] ";
 }
 
-$q="select id from blog $where order by 'id' desc";
+$q="select id from blog $where order by id desc";
 $q=mysql_query($q) or die(me(mysql_error()));
 $num=mysql_num_rows($q);
 $num=ceil($num/$show);
@@ -56,7 +56,7 @@ if(($t=$_GET['page']+1)<=$num and $num!=1) {
 $pages.="</center>";
 
 echo $pages;
-$q="select id, nixtime, appby, groups, title, text, comment from blog $where order by 'id' desc limit $page, $show";
+$q="select id, nixtime, appby, groups, title, text, comment from blog $where order by id desc limit $page, $show";
 $q=mysql_query($q) or die(me(mysql_error()));
 while($r=mysql_fetch_assoc($q)) addtext($r['id'], $r['nixtime'], $r['appby'], $r['groups'], $r['title'], $r['text'], $r['comment']);
 echo $pages;

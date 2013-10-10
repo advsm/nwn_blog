@@ -10,8 +10,8 @@ if($_POST['submit'] and stristr($_SERVER['HTTP_REFERER'], "just.nwn.name")) {
   $idcom=strtr($_POST['id'], $byfilter);
   $name=strtr($_POST['name'], $byfilter);
   $q="select id, ip, nixtime, name from comblog where idcom=$idcom and flood=0";
-  #$q=mysql_query($q) or die(me(mysql_error()));
-  while($r=mysql_fetch_assoc($q)) {
+  $q=mysql_query($q) or die(me(mysql_error()));
+  while($q && $r=mysql_fetch_assoc($q)) {
     $plus=mktime(date("G")+9, date("i")-5);
     if(($r['ip']==$ip or $r['name']==$name) and $r['nixtime']>$plus) redirect("./comment.php?id={$_POST['id']}", "Вы не можете отправлять сообщения так часто!");
     else {
@@ -21,8 +21,11 @@ if($_POST['submit'] and stristr($_SERVER['HTTP_REFERER'], "just.nwn.name")) {
     }
   }
   #$q=mysql_query("select nn from user where nn='$name'") or die(me(mysql_error()));
-  $r=mysql_fetch_assoc($q);
-  if(mysql_num_rows($q)>0 && $r['nn'] != login()) redirect("./comment.php?id={$_POST['id']}", "Вы не можете использовать это имя (1=0).");
+  if ($q) {
+    $r=mysql_fetch_assoc($q);
+    if(mysql_num_rows($q)>0 && $r['nn'] != login()) redirect("./comment.php?id={$_POST['id']}", "Вы не можете использовать это имя (1=0).");
+  }
+
   $comment=filter($_POST['comment']);
 
   $time=mktime(date("G")+9);

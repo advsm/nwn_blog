@@ -10,13 +10,13 @@ if($_GET['act']=="cedit") {
     $name=strtr($_POST['name'], $byfilter);
     $comment=strtr($_POST['comment'], $byfilter);
     $q=mysql_query("update comblog set name='$name', comment='$comment' where id='$id'") or die(me(mysql_error()));
-    echo "<h4>РљРѕРјРјРµРЅС‚Р°СЂРёР№ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅ</h4>";
+    echo "<h4>Комментарий отредактирован</h4>";
     sleep(3);
     redirect("../comment.php?id={$_GET['cid']}");
   }
   if($_POST['delete']) {
     $q=mysql_query("delete from comblog where id='$id'") or die(me(mysql_error()));
-    echo "<h4>РљРѕРјРјРµРЅС‚Р°СЂРёР№ СѓРґР°Р»РµРЅ</h4>";
+    echo "<h4>Комментарий удален</h4>";
     sleep(3);
     redirect("../comment.php?id={$_GET['cid']}");
   }
@@ -41,12 +41,12 @@ if($_GET['act']=="cedit") {
   <table cellpadding=\"5\" cellspacing=\"5\" width=\"100%\" align=\"center\">
   <tr>
   <td>
-  <input type=\"submit\" name=\"edit\" value=\"Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ\">
+  <input type=\"submit\" name=\"edit\" value=\"Редактировать\">
   </form>
   </td>
   <td align=\"right\">
   <form action=\"\" method=\"post\">
-  <input type=\"submit\" name=\"delete\" value=\"РЈРґР°Р»РёС‚СЊ\">
+  <input type=\"submit\" name=\"delete\" value=\"Удалить\">
   </form>
   </td>
   </tr>
@@ -65,14 +65,14 @@ if($_GET['act']=="edit") {
     $comment=$_POST['comment'];
     $q="update blog set title='$title', text='$text', comment='$comment' where id=$id";
     $q=mysql_query($q) or die(me(mysql_error()));
-    echo "<h4>Р—Р°РїРёСЃСЊ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅР°</h4>";
+    echo "<h4>Запись отредактирована</h4>";
     sleep(3);
     redirect("../comment.php?id=$id");
   }
   if($_POST['delete']) {
     $q=mysql_query("delete from blog where id='$id'") or die(me(mysql_error()));
     $q1=mysql_query("delete from comblog where idcom='$id'") or die(me(mysql_error()));
-    echo "<h4>Р—Р°РїРёСЃСЊ СѓРґР°Р»РµРЅР°</h4>";
+    echo "<h4>Запись удалена</h4>";
     sleep(3);
     redirect("../");
   }
@@ -98,12 +98,12 @@ if($_GET['act']=="edit") {
   <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
   <tr>
   <td>
-  <input type=\"submit\" name=\"edit\" value=\"Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ\">
+  <input type=\"submit\" name=\"edit\" value=\"Редактировать\">
   </form>
   </td>
   <td align=\"right\">
   <form action=\"\" method=\"post\">
-  <input type=\"submit\" name=\"delete\" value=\"РЈРґР°Р»РёС‚СЊ\">
+  <input type=\"submit\" name=\"delete\" value=\"Удалить\">
   </form>
   </td>
   </tr>
@@ -123,14 +123,14 @@ if($_POST['login'] and stristr($_SERVER['HTTP_REFERER'], "just.nwn.name")) {
     $_SESSION['login']=$u;
     $_SESSION['pass']=$md5;
     if($r['root']==1) $_SESSION['root']=1;
-    redirect("./", 'Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ!');
+    redirect("./", 'Вход выполнен!');
   }
 }
 
 
 if($_POST['submit']) {
   if(login()) $user=login();
-  else die("<h4>РўСЂРµР±СѓРµС‚СЃСЏ Р·Р°Р»РѕРіРёРЅРµС‚СЃСЏ!</h4>");
+  else die("<h4>Требуется залогинется!</h4>");
 
   if($_POST["addgroup"]) {
     $group=strtr($_POST["addgroup"], $byfilter);
@@ -154,7 +154,7 @@ echo "<table width=\"100%\" cellpadding=\"0\" cellspasing=\"0\" border=\"0\">
 <tr>
 <td align=\"center\" valign=\"center\" width=\"50%\">
 <form action=\"\" method=\"post\">
-Р’С‹Р±СЂР°С‚СЊ РіСЂСѓРїРїСѓ:
+Выбрать группу:
 <br />
 <select name=\"group\" style=\"width: 50%;\">
 ";
@@ -163,23 +163,23 @@ echo "
 </select>
 <br />
 <br />
-РР»Рё РґРѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ РіСЂСѓРїРїСѓ:
+Или добавить новую группу:
 <br />
 <input type=\"text\" name=\"addgroup\" style=\"width: 50%\" />
 <br />
 <br />
-<input type=text name=\"title\" value=\"РќР°Р·РІР°РЅРёРµ.\" style=\"width: 50%\" />
+<input type=text name=\"title\" value=\"Название.\" style=\"width: 50%\" />
 <br />
 <br />
 <textarea name=\"text\" WRAP=\"physical\" COLS=\"50%\" ROWS=\"3\">
-Р—Р°РїРёСЃСЊ.</textarea>
+Запись.</textarea>
 <br />
 <br />
 <textarea name=\"comment\" WRAP=\"physical\" COLS=\"50%\" ROWS=\"3\">
-РЎРІРѕР№ РєРѕРјРјРµРЅС‚.</textarea>
+Свой коммент.</textarea>
 <br />
 <br />
-<input type=\"submit\" name=\"submit\" value=\"Р—Р°РїРѕСЃС‚РёС‚СЊ\">
+<input type=\"submit\" name=\"submit\" value=\"Запостить\">
 </form>
 </td>
 <td align=\"right\" valign=\"top\">
@@ -187,7 +187,7 @@ echo "
 <tr>
 <td>
 <form action=\"\" method=post>
-Р’Р°С€Рµ РёРјСЏ:
+Ваше имя:
 </td>
 <td>
 <input type=\"text\" name=\"username\" />
@@ -195,7 +195,7 @@ echo "
 </tr>
 <tr>
 <td>
-РџР°СЂРѕР»СЊ:
+Пароль:
 </td>
 <td>
 <input type=\"password\" name=\"userpass\" />
@@ -205,7 +205,7 @@ echo "
 <td>
 </td>
 <td>
-<input type=\"submit\" name=\"login\" value=\"Р—Р°Р»РѕРіРёРЅРёС‚СЊСЃСЏ\" />
+<input type=\"submit\" name=\"login\" value=\"Залогиниться\" />
 </td>
 </tr>
 </table>
